@@ -20,19 +20,23 @@ public class Space extends World
         GreenfootImage background = getBackground();
         background.setColor(Color.BLACK);
         background.fill();
-        
+
         Rocket rocket = new Rocket();
         addObject(rocket, getWidth()/2 + 100, getHeight()/2);
-        
+
         addAsteroids(startAsteroids);
-        
+
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 480);
 
         Explosion.initializeImages();
         ProtonWave.initializeImages();
+
+        addAsteroids(startAsteroids);
+        paintStars(300);
+        prepare();
     }
-    
+
     /**
      * Add a given number of asteroids to our world. Asteroids are only added into
      * the left half of the world.
@@ -46,7 +50,37 @@ public class Space extends World
             addObject(new Asteroid(), x, y);
         }
     }
-    
+
+    /**
+     * adds varrying stars to background of world
+     */
+    private void paintStars(int count)
+    {
+        //loop from zero to count
+        {
+            GreenfootImage background = getBackground();
+            for(int i = 0; i < count; i++)
+            {
+                int x = Greenfoot.getRandomNumber(getWidth());
+                int y = Greenfoot.getRandomNumber(getHeight());
+
+                int deltaRed = Greenfoot.getRandomNumber(80) - 40;
+                int deltaGreen = Greenfoot.getRandomNumber(80) - 40;
+                int deltaBlue = Greenfoot.getRandomNumber(80) - 40;
+
+                int starBrightness = Greenfoot.getRandomNumber(120) + 80;
+
+                Color StarColor = new Color(starBrightness + deltaRed, starBrightness + deltaGreen, starBrightness + deltaBlue);
+
+                int starSize = Greenfoot.getRandomNumber(3) + 1;
+
+                background.setColor(StarColor);
+                background.fillOval(x, y, starSize, starSize);
+            }
+
+        }
+    }
+
     /**
      * This method is called when the game is over to display the final score.
      */
@@ -55,4 +89,11 @@ public class Space extends World
         // TODO: show the score board here. Currently missing.
     }
 
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+    }
 }
