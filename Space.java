@@ -88,6 +88,8 @@ public class Space extends World
     {
         int x = getWidth() / 2;
         int y = getHeight() / 2;
+         int currentScore = scoreCounter.getValue();
+        addObject(new ScoreBoard(currentScore), x ,y); 
     }
 
     /**
